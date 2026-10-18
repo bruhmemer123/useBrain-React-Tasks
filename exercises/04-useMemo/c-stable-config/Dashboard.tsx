@@ -1,4 +1,4 @@
-import { memo, useRef, useState } from 'react'
+import { memo, useRef, useState,useMemo } from 'react'
 
 type Config = { color: string; size: number }
 
@@ -16,7 +16,9 @@ export default function Dashboard() {
   const [likes, setLikes] = useState(0)
   const [color, setColor] = useState('purple')
 
-  const config = { color, size: 24 }
+  const config = useMemo(() => {
+    return { color, size: 24 }
+  }, [color])
 
   return (
     <div>

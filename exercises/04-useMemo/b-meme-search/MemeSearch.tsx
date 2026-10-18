@@ -12,7 +12,7 @@ export default function MemeSearch({ memes, onFilter }: Props) {
   const results = useMemo(() => {
     onFilter?.()
     return memes.filter(m => m.toLowerCase().includes(query.toLowerCase()))
-  }, [])
+  }, [onFilter, query])
 
   return (
     <div className={dark ? 'dark' : 'light'}>

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState,useMemo } from 'react'
 
 type MagicFinderProps = {
   tickets: number[]
@@ -8,7 +8,9 @@ type MagicFinderProps = {
 export default function MagicFinder({ tickets, findMagic }: MagicFinderProps) {
   const [mode, setMode] = useState<'light' | 'dark'>('light')
 
-  const magic = findMagic(tickets)
+  const magic = useMemo(() => {
+    return findMagic(tickets)
+  }, [tickets, findMagic])
 
   return (
     <div className={mode}>
