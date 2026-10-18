@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react'
+import { use } from 'marked';
+import { useEffect, useState,useCallback } from 'react'
 
 export type User = { id: number; name: string }
 
@@ -10,9 +11,9 @@ type Props = {
 export default function UserCard({ userId, fetchUser }: Props) {
   const [user, setUser] = useState<User | null>(null)
 
-  const load = () => {
+  const load = useCallback( () => {
     fetchUser(userId).then(setUser)
-  }
+  }, [userId, fetchUser])
 
   useEffect(() => {
     load()

@@ -9,7 +9,7 @@ export default function CookieClicker({ onLog }: { onLog: (cookies: number) => v
 
   const logScore = useCallback(() => {
     onLog(cookies)
-  }, [])
+  }, [cookies, onLog])
 
   return (
     <div>

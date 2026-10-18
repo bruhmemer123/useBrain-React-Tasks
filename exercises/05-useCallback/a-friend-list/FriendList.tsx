@@ -1,4 +1,4 @@
-import { useState, memo, useRef } from 'react'
+import { useState, memo, useRef,useCallback } from 'react'
 
 type Friend = {
   id: number
@@ -24,9 +24,9 @@ const MemoFriendItem = memo(FriendItem)
 export default function FriendList({ initialFriends }: { initialFriends: Friend[] }) {
   const [friends, setFriends] = useState(initialFriends)
 
-  const removeFriend = (id: number) => {
+  const removeFriend = useCallback((id:number) => {
     setFriends(prev => prev.filter(f => f.id !== id))
-  }
+  }, [])
 
   return (
     <ul>
