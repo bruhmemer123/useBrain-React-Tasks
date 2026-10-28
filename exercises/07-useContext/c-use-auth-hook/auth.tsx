@@ -13,5 +13,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
 // Fix this. The "as Auth" is a lie: outside an <AuthProvider> this is null.
 export function useAuth() {
-  return useContext(AuthContext) as Auth
+  const context = useContext(AuthContext)
+  if (!context) {
+    throw new Error('useAuth must be used inside <AuthProvider>')
+  }
+  return context 
 }

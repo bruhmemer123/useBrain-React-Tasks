@@ -1,6 +1,10 @@
 import { useState } from 'react'
+import { useContext,createContext } from 'react'
 
-function Card({ theme }: { theme: 'light' | 'dark' }) {
+export const ThemeContext = createContext<'light' | 'dark'>('light')
+
+function Card() {
+  const theme = useContext(ThemeContext)
   return (
     <div data-testid="card" className={theme}>
       Current theme: {theme}
@@ -8,10 +12,10 @@ function Card({ theme }: { theme: 'light' | 'dark' }) {
   )
 }
 
-function Layout({ theme }: { theme: 'light' | 'dark' }) {
+function Layout() {
   return (
     <main>
-      <Card theme={theme} />
+      <Card />
     </main>
   )
 }
@@ -21,10 +25,12 @@ export default function ThemeApp() {
 
   return (
     <div>
-      <Layout theme={theme} />
-      <button onClick={() => setTheme(t => (t === 'light' ? 'dark' : 'light'))}>
-        Toggle theme
-      </button>
+      <ThemeContext.Provider value={theme}>
+        <Layout />
+        <button onClick={() => setTheme(t => (t === 'light' ? 'dark' : 'light'))}>
+          Toggle theme
+        </button>
+      </ThemeContext.Provider>
     </div>
   )
 }
