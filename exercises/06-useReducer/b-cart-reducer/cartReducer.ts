@@ -14,14 +14,10 @@ export const initialCart: CartState = {
 export function cartReducer(state: CartState, action: CartAction): CartState {
   switch (action.type) {
     case 'increment': {
-      const item = state.items.find(i => i.id === action.id)!
-      item.qty += 1
-      return state
+      return { ...state, items: state.items.map(i => (i.id === action.id ? { ...i, qty: i.qty + 1 } : i)) }
     }
     case 'decrement': {
-      const item = state.items.find(i => i.id === action.id)!
-      item.qty -= 1
-      return state
+      return { ...state, items: state.items.map(i => (i.id === action.id ? { ...i, qty: Math.max(0, i.qty - 1) } : i)) }
     }
     case 'clear':
       return { items: state.items.map(i => ({ ...i, qty: 0 })) }
